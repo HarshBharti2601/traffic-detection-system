@@ -53,6 +53,7 @@ while True:
     countershape,h = cv2.findContours(dilatadata,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
 
     cv2.line(frame1,(25,count_line_position),(1200,count_line_position),(255,127,0),3)
+    cv2.line(frame1, (25, count_line_position_exit), (1200, count_line_position_exit), (0, 0, 255), 3) 
  
 
     for (i,c) in enumerate(countershape):
@@ -73,6 +74,12 @@ while True:
                 cv2.line(frame1,(25,count_line_position),(1200,count_line_position),(0,127,255),3)
                 detect.remove((x,y))
                 print("Vehicle counter:"+str(counter))
+
+            if y < (count_line_position_exit + offset) and y > (count_line_position_exit - offset):
+                counter -= 1
+                cv2.line(frame1, (25, count_line_position_exit), (1200, count_line_position_exit), (0, 127, 255), 3)
+                detect.remove((x, y))
+                print("Vehicle counter:" + str(counter))
 
     cv2.putText(frame1,"VEHICLE COUNTER :"+str(counter),(450,70),cv2.FONT_HERSHEY_SIMPLEX,2,(0,0,255),5)
 
